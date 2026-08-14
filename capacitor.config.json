@@ -1,0 +1,6 @@
+{
+  "appId": "com.azkari.ultra",
+  "appName": "Azkari Ultra",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}
