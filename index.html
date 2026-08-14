@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="أذكاري Ultra — رفيقك اليومي للذكر">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<title>أذكاري Ultra</title>
+<style>
+:root{--bg:#06101c;--panel:#0b1929;--panel2:#10243a;--line:#1c344d;--txt:#f6f8fc;--muted:#91a5bb;--gold:#e9bb62;--green:#52ddb0;--blue:#69a9ff;--danger:#ff7373}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:radial-gradient(900px 500px at 50% -10%,#183653 0,#06101c 55%,#040a12 100%);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;min-height:100vh}
+button{font:inherit;color:inherit;border:0;cursor:pointer} .app{max-width:620px;margin:auto;padding:16px 14px calc(92px + env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:center;margin:4px 0 14px}.logo{font-weight:900;font-size:25px;letter-spacing:-.7px}.logo i{font-style:normal;color:var(--gold)}
+.icon{width:44px;height:44px;border:1px solid var(--line);background:#0b1929;border-radius:15px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(145deg,#122c45,#0a1727);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 18px 55px #0007}
+.hero:after{content:"✦";position:absolute;font-size:110px;left:-12px;top:-42px;color:#fff1;transform:rotate(12deg)}
+.eyebrow{color:var(--gold);font-size:12px;font-weight:800}.hero h1{margin:5px 0 2px;font-size:27px}.hero p{margin:0;color:var(--muted);font-size:13px}
+.levelrow{display:flex;justify-content:space-between;margin-top:18px;font-size:13px}.bar{height:10px;background:#06101a;border-radius:99px;margin-top:7px;overflow:hidden}.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));border-radius:99px;transition:.5s}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px}.stat{background:#081522cc;border:1px solid #1a3047;padding:10px 4px;border-radius:16px;text-align:center}.stat strong{font-size:18px;display:block}.stat span{font-size:10px;color:var(--muted)}
+.tabs{display:flex;gap:8px;overflow:auto;padding:15px 1px 5px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;background:#0b1929;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:9px 14px}.tab.on{color:#06101c;background:var(--gold);border-color:var(--gold);font-weight:800}
+.card{background:#0b1929e8;border:1px solid var(--line);border-radius:23px;padding:17px;margin:10px 0;box-shadow:0 10px 28px #0003}
+.cardhead{display:flex;justify-content:space-between;align-items:center}.tag{font-size:11px;color:var(--gold);font-weight:800}.source{font-size:11px;color:var(--muted)}
+.dhikr{font-size:21px;line-height:2;text-align:center;margin:17px 3px}.progress{height:5px;background:#07111d;border-radius:9px;overflow:hidden}.progress b{display:block;height:100%;background:var(--green);width:0;transition:.25s}
+.counter{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:15px}.round{width:45px;height:45px;border-radius:15px;background:#14273d;border:1px solid #23415e;font-size:21px}.count{min-width:90px;text-align:center;font-weight:900;font-size:25px}.primary{width:100%;padding:15px;border-radius:16px;margin-top:12px;background:linear-gradient(135deg,#35aa85,#57ddb0);color:#04110d;font-weight:900}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick button{background:#0e2033;border:1px solid var(--line);padding:14px;border-radius:18px;text-align:right}.quick b{display:block}.quick small{color:var(--muted)}
+.sectiontitle{font-size:15px;font-weight:900;margin:18px 2px 9px}.mission{display:flex;justify-content:space-between;align-items:center;background:#0b1929;border:1px solid var(--line);padding:14px;border-radius:17px;margin:7px 0}.mission small{color:var(--muted)}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:8px}.badge{padding:13px;background:#0b1929;border:1px solid var(--line);border-radius:18px}.badge.lock{opacity:.4}.badge em{font-style:normal;font-size:25px}.badge b{display:block}.badge small{color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#06101eee;border-top:1px solid var(--line);backdrop-filter:blur(18px);z-index:5;padding:8px max(12px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom))}
+.nav{max-width:620px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.nav button{background:none;color:var(--muted);padding:7px 3px;border-radius:13px;font-size:11px}.nav button.on{background:#10263c;color:var(--gold)}.nav span{display:block;font-size:19px;margin-bottom:2px}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:20;align-items:flex-end}.modal.show{display:flex}.sheet{width:100%;max-width:620px;margin:auto;background:#0a1727;border:1px solid var(--line);border-radius:27px 27px 0 0;padding:19px;max-height:85vh;overflow:auto}.sheet h2{margin-top:0}.row{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}.toggle{width:52px;height:30px;background:#24374c;border-radius:99px;padding:3px}.toggle i{display:block;width:24px;height:24px;background:#fff;border-radius:50%;transition:.2s}.toggle.on{background:var(--green)}.toggle.on i{transform:translateX(-22px)}.close{width:100%;padding:14px;border-radius:16px;background:#15283e;margin-top:14px}
+.toast{position:fixed;z-index:30;bottom:90px;left:50%;transform:translate(-50%,20px);opacity:0;background:#f5f8fc;color:#07111c;padding:11px 17px;border-radius:99px;font-weight:800;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+.empty{text-align:center;color:var(--muted);padding:35px 10px}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="logo">أذكاري <i>Ultra ✦</i></div><button class="icon" onclick="settings()">⚙️</button></header>
+
+<section class="hero">
+<div class="eyebrow">رحلة الذكر اليومية</div>
+<h1 id="greet">السلام عليكم</h1><p>اجعل الذكر عادة ثابتة، لا مهمة مؤقتة.</p>
+<div class="levelrow"><b id="lvl">المستوى 1</b><span id="xp">0 / 100 XP</span></div>
+<div class="bar"><b id="xpbar"></b></div>
+<div class="stats"><div class="stat"><strong id="streak">0</strong><span>🔥 سلسلة</span></div><div class="stat"><strong id="today">0</strong><span>📿 اليوم</span></div><div class="stat"><strong id="total">0</strong><span>✨ الإجمالي</span></div><div class="stat"><strong id="best">0</strong><span>🏆 الأفضل</span></div></div>
+</section>
+
+<div id="home"></div>
+<div id="library" style="display:none"></div>
+<div id="ach" style="display:none"></div>
+<div id="settingsPage" style="display:none"></div>
+</div>
+
+<nav class="bottom"><div class="nav">
+<button class="on" id="nHome" onclick="page('home')"><span>🏠</span>الرئيسية</button>
+<button id="nLibrary" onclick="page('library')"><span>📿</span>الأذكار</button>
+<button id="nAch" onclick="page('ach')"><span>🏆</span>الإنجازات</button>
+<button onclick="settings()"><span>⚙️</span>الإعدادات</button>
+</div></nav>
+
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet" id="sheet"></div></div>
+
+<script>
+const DATA=[
+["صباح","أصبحنا وأصبح الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.","رواه مسلم",1],
+["صباح","اللهم بك أصبحنا وبك أمسينا، وبك نحيا وبك نموت وإليك النشور.","رواه الترمذي",1],
+["صباح","رضيت بالله ربًا، وبالإسلام دينًا، وبمحمد ﷺ نبيًا.","رواه أبو داود والترمذي",3],
+["مساء","أمسينا وأمسى الملك لله، والحمد لله، لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.","رواه مسلم",1],
+["مساء","رضيت بالله ربًا، وبالإسلام دينًا، وبمحمد ﷺ نبيًا.","رواه أبو داود والترمذي",3],
+["بعد الصلاة","سبحان الله","رواه مسلم",33],
+["بعد الصلاة","الحمد لله","رواه مسلم",33],
+["بعد الصلاة","الله أكبر","رواه مسلم",34],
+["عام","لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.","متفق عليه",100],
+["عام","أستغفر الله وأتوب إليه.","ثبت عنه ﷺ",100],
+["عام","سبحان الله وبحمده.","متفق عليه",100],
+["عام","اللهم صل وسلم على نبينا محمد.","ذكر الصلاة على النبي ﷺ",10]
+];
+let S=JSON.parse(localStorage.getItem("azkariUltra")||"null")||{xp:0,total:0,today:0,streak:0,last:"",counts:{},done:{},best:0,vib:true,sound:true,cat:"الكل",page:"home"};
+const key=()=>new Date().toLocaleDateString("en-CA");
+function day(){let d=key();if(S.last!==d){if(S.last){let a=new Date(S.last),b=new Date(d),diff=Math.round((b-a)/86400000);S.streak=diff===1?S.streak+1:1}else S.streak=1;S.last=d;S.today=0;save()}S.best=Math.max(S.best,S.streak)}
+function save(){localStorage.setItem("azkariUltra",JSON.stringify(S))}
+function lvl(){return Math.floor(S.xp/100)+1}
+function ui(){
+ day();document.getElementById("lvl").textContent="المستوى "+lvl();document.getElementById("xp").textContent=(S.xp%100)+" / 100 XP";document.getElementById("xpbar").style.width=(S.xp%100)+"%";
+ ["streak","today","total","best"].forEach(x=>document.getElementById(x).textContent=S[x]);
+ renderHome();renderLibrary();renderAch();renderSettingsPage();
+}
+function tabs(){return ["الكل","صباح","مساء","بعد الصلاة","عام"].map(c=>`<button class="tab ${S.cat===c?"on":""}" onclick="cat('${c}')">${c}</button>`).join("")}
+function cards(filter){
+ let arr=DATA.map((a,i)=>[a,i]).filter(([a])=>filter==="الكل"||a[0]===filter);
+ return arr.map(([a,i])=>{let n=S.counts[i]||0,p=Math.min(100,n/a[3]*100);return `<article class="card"><div class="cardhead"><span class="tag">${a[0]} • الهدف ${a[3]}</span><span class="source">${a[2]}</span></div><div class="dhikr">${a[1]}</div><div class="progress"><b style="width:${p}%"></b></div><div class="counter"><button class="round" onclick="minus(${i})">−</button><div class="count">${n}<small style="font-size:12px;color:var(--muted)"> / ${a[3]}</small></div><button class="round" onclick="plus(${i})">＋</button></div><button class="primary" onclick="plus(${i})">ذكرتُه ✓</button></article>`}).join("")
+}
+function renderHome(){
+document.getElementById("home").innerHTML=`<div class="tabs">${tabs()}</div>
+<div class="sectiontitle">⚡ وصول سريع</div><div class="quick"><button onclick="cat('صباح');page('home')"><b>🌅 أذكار الصباح</b><small>ابدأ يومك بالذكر</small></button><button onclick="cat('مساء');page('home')"><b>🌙 أذكار المساء</b><small>اختم يومك بالذكر</small></button></div>
+<div class="sectiontitle">📿 وردك الحالي</div>${cards(S.cat)}
+<div class="sectiontitle">🎯 مهام اليوم</div><div class="mission"><b>أكمل 10 أذكار</b><small>${Math.min(S.today,10)} / 10</small></div><div class="mission"><b>اكسب 50 XP</b><small>${Math.min(S.xp%100,50)} / 50 XP</small></div>`;
+}
+function renderLibrary(){document.getElementById("library").innerHTML=`<div class="sectiontitle">📚 مكتبة الأذكار</div><div class="tabs">${tabs()}</div>${cards(S.cat)}`}
+function renderAch(){
+let a=[["🌱","البداية","أكمل أول ذكر",S.total>=1],["🔥","ثبات","حافظ على 3 أيام",S.best>=3],["💎","المئة","أكمل 100 ذكر",S.total>=100],["🏅","المحترف","أكمل 500 ذكر",S.total>=500],["👑","القمة","وصل للمستوى 10",lvl()>=10],["🌟","أسبوع ثابت","سلسلة 7 أيام",S.best>=7]];
+document.getElementById("ach").innerHTML=`<div class="sectiontitle">🏆 إنجازاتك</div><div class="badges">${a.map(x=>`<div class="badge ${x[3]?"":"lock"}"><em>${x[0]}</em><b>${x[1]}</b><small>${x[2]}</small></div>`).join("")}</div><div class="card" style="margin-top:12px"><b>إحصائيات</b><p style="color:var(--muted)">أكملت ${S.total} تكرارًا إجمالًا، وأفضل سلسلة لك ${S.best} يوم.</p></div>`}
+function renderSettingsPage(){}
+function page(p){S.page=p;["home","library","ach"].forEach(x=>document.getElementById(x).style.display=x===p?"block":"none");document.getElementById("settingsPage").style.display="none";["nHome","nLibrary","nAch"].forEach((id,i)=>document.getElementById(id).classList.toggle("on",["home","library","ach"][i]===p))}
+function cat(c){S.cat=c;save();ui();page(S.page)}
+function plus(i){
+day();S.counts[i]=(S.counts[i]||0)+1;S.xp++;S.total++;S.today++;S.done[key()]=true;
+if(S.vib&&navigator.vibrate)navigator.vibrate(18);
+if(S.sound)beep();
+save();ui();page(S.page);
+let target=DATA[i][3];if(S.counts[i]===target)toast("اكتمل الذكر 🌟");else if(S.today===10)toast("أكملت مهمة اليوم 🎯");else toast("+1 XP • استمر");
+}
+function minus(i){S.counts[i]=Math.max(0,(S.counts[i]||0)-1);save();ui()}
+function beep(){try{let c=new AudioContext(),o=c.createOscillator(),g=c.createGain();o.frequency.value=600;g.gain.value=.025;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.055)}catch(e){}}
+function toast(t){let e=document.getElementById("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),1600)}
+function settings(){
+document.getElementById("sheet").innerHTML=`<h2>⚙️ الإعدادات</h2><div class="row"><span>📳 اهتزاز</span><button class="toggle ${S.vib?"on":""}" onclick="S.vib=!S.vib;save();settings()"><i></i></button></div><div class="row"><span>🔊 صوت العد</span><button class="toggle ${S.sound?"on":""}" onclick="S.sound=!S.sound;save();settings()"><i></i></button></div><div class="row"><span>📱 التثبيت كتطبيق</span><button onclick="installApp()">تثبيت</button></div><div class="row"><span>🗑️ حذف كل التقدم</span><button style="color:var(--danger)" onclick="reset()">حذف</button></div><button class="close" onclick="closeModal()">إغلاق</button>`;
+document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function reset(){if(confirm("سيتم حذف جميع الأذكار والإحصائيات. متأكد؟")){localStorage.removeItem("azkariUltra");location.reload()}}
+let deferred=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e});
+function installApp(){if(deferred){deferred.prompt();deferred=null}else toast("استخدم قائمة المتصفح ثم «إضافة إلى الشاشة الرئيسية»")}
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+ui();page("home");
+</script>
+</body></html>
